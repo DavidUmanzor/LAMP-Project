@@ -37,7 +37,7 @@ body
     width: 70%;
     margin-left: 15%;
     padding: 25px;
-    background-color: #ffffff;
+    background-color: #5698fa;
 }
 
 #accessUIDiv
@@ -46,7 +46,7 @@ body
     width: 70%;
     margin-left: 15%;
     padding: 25px;
-    background-color: #b2b2b2;
+    background-color: #5698fa;
 }
 
 .buttons
@@ -60,7 +60,7 @@ body
 
 .buttons:hover{
     background-color: #9e9e9ea7;
-    color: #FFFFFF;
+    color: #000000;
     opacity: 50%;
 }
 
@@ -69,6 +69,14 @@ body
 	font-size: 25px;
 }
 #loginPassword
+{
+	font-size: 25px;
+}
+#signupFirstName
+{
+	font-size: 25px;
+}
+#signupLastName
 {
 	font-size: 25px;
 }
@@ -125,6 +133,7 @@ input[type="text"],input[type="password"]{
     width: 80%;
     margin-left: 10%;
     text-align: center;
+    font-family: 'Audiowide', sans-serif;
 }
 
 #logoutButton{
