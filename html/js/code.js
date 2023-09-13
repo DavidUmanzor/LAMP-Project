@@ -1,4 +1,4 @@
-const urlBase = 'http://davidumanzor.com/html/LAMPAPI';
+const urlBase = 'http://davidumanzor.com/LAMPAPI';
 const extension = 'php';
 
 let userId = 0;
@@ -13,31 +13,38 @@ function doLogin() {
 
     let login = document.getElementById("loginName").value;
     let password = document.getElementById("loginPassword").value;
-
+    console.log(login);
+    console.log(password);
     var hash = md5(password);
-    if (!validLoginForm(login, password)) {
-        document.getElementById("loginResult").innerHTML = "invalid username or password";
-        return;
-    }
+ //   if (!validLoginForm(login, password)) {
+//        console.log("failing here.");
+//        document.getElementById("loginResult").innerHTML = "invalid username or password";
+//        return;
+//    }
     document.getElementById("loginResult").innerHTML = "";
 
     let tmp = {
         login: login,
-        password: hash
+        password: password
     };
 
     let jsonPayload = JSON.stringify(tmp);
 
     let url = urlBase + '/Login.' + extension;
-
+    
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     try {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-
-                let jsonObject = JSON.parse(xhr.responseText);
+              let jsonObject;
+              try {
+                jsonObject = JSON.parse(xhr.responseText);
+              } catch (error) {
+                  console.log("Error parsing JSON:", error);
+                  console.log("Response text:", xhr.responseText);
+              }
                 userId = jsonObject.id;
 
                 if (userId < 1) {
@@ -59,23 +66,25 @@ function doLogin() {
 }
 
 function doSignup() {
+    firstName = document.getElementById("signupFirstName").value;
+    lastName = document.getElementById("signupLastName").value;
 
+    let username = document.getElementById("signupName").value;
+    let password = document.getElementById("signupPassword").value;
 
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
+//    if (!validSignUpForm(firstName, lastName, username, password)) {
+//        document.getElementById("signupResult").innerHTML = "invalid signup";
+//        return;
+//    }
 
-    if (!validSignUpForm(username, password)) {
-        document.getElementById("signupResult").innerHTML = "invalid signup";
-        return;
-    }
-
-    var hash = md5(password);
 
     document.getElementById("signupResult").innerHTML = "";
 
     let tmp = {
+        firstName: firstName,
+        lastName: lastName,
         login: username,
-        password: hash
+        password: password
     };
 
     let jsonPayload = JSON.stringify(tmp);
@@ -105,6 +114,7 @@ function doSignup() {
                 document.getElementById("signupResult").innerHTML = "User added";
                 firstName = jsonObject.firstName;
                 lastName = jsonObject.lastName;
+                window.location.href = "contacts.html";                
                 saveCookie();
             }
         };
@@ -245,14 +255,14 @@ function loadContacts() {
                 for (let i = 0; i < jsonObject.results.length; i++) {
                     ids[i] = jsonObject.results[i].ID
                     text += "<tr id='row" + i + "'>"
-                    text += "<td id='first_Name" + i + "'><span>" + jsonObject.results[i].FirstName + "</span></td>";
-                    text += "<td id='last_Name" + i + "'><span>" + jsonObject.results[i].LastName + "</span></td>";
-                    text += "<td id='email" + i + "'><span>" + jsonObject.results[i].EmailAddress + "</span></td>";
-                    text += "<td id='phone" + i + "'><span>" + jsonObject.results[i].PhoneNumber + "</span></td>";
+                    text += "<td id='first_Name" + i + "'><span>" + jsonObject.results[i].firstName + "</span></td>";
+                    text += "<td id='last_Name" + i + "'><span>" + jsonObject.results[i].lastName + "</span></td>";
+                    text += "<td id='email" + i + "'><span>" + jsonObject.results[i].emailAddress + "</span></td>";
+                    text += "<td id='phone" + i + "'><span>" + jsonObject.results[i].phoneNumber + "</span></td>";
                     text += "<td>" +
-                        "<button type='button' id='edit_button" + i + "' class='w3-button w3-circle w3-lime' onclick='edit_row(" + i + ")'>" + "<span class='glyphicon glyphicon-edit'></span>" + "</button>" +
-                        "<button type='button' id='save_button" + i + "' value='Save' class='w3-button w3-circle w3-lime' onclick='save_row(" + i + ")' style='display: none'>" + "<span class='glyphicon glyphicon-saved'></span>" + "</button>" +
-                        "<button type='button' onclick='delete_row(" + i + ")' class='w3-button w3-circle w3-amber'>" + "<span class='glyphicon glyphicon-trash'></span> " + "</button>" + "</td>";
+                        "<button type='button' id='edit_button" + i + "' class='edit_button0' onclick='edit_row(" + i + ")'>" + "<span></span>Edit" + "</button>" +
+                        "<button type='button' id='save_button" + i + "' value='Save' class='save_button' onclick='save_row(" + i + ")' style='display: none'>" + "<span></span>Save" + "</button>" +
+                        "<button type='button' id='deletebutton' onclick='delete_row(" + i + ")' class='delete_button'>" + "<span></span>Delete " + "</button>" + "</td>";
                     text += "<tr/>"
                 }
                 text += "</table>"
@@ -445,6 +455,7 @@ function validLoginForm(logName, logPass) {
         var regex = /(?=.*\d)(?=.*[A-Za-z])(?=.*[!@#$%^&*]).{8,32}/;
 
         if (regex.test(logPass) == false) {
+            console.log(logPass);
             console.log("PASSWORD IS NOT VALID");
         }
 
@@ -554,7 +565,7 @@ function validAddContact(firstName, lastName, phone, email) {
             console.log("PHONE IS NOT VALID");
         }
 
-        else {
+         else {
 
             console.log("PHONE IS VALID");
             phoneErr = false;
