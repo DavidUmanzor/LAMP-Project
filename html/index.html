@@ -1,32 +1,46 @@
 <html>
 <head>
-	<title>ContactConnect22</title>
+	<title>The Vault</title>
 	<script type="text/javascript" src="js/md5.js"></script>
 	<script type="text/javascript" src="js/code.js"></script>
     <link href="css/styles.css" rel="stylesheet">	
+	<link href="css/login.css" rel = "stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
 </head>
 <body>
+	<a href="index.html"><img id="logo" src="images/logo.png"
+		alt="Logo for The Vault"></a>
 
-<h1 id="title">ContactConnect22</h1>
+<h1 id="title">The Vault</h1>
 
-<div id="loginDiv">
-	<span id="inner-title">Log in</span>
-	<input type="text" id="loginName" placeholder="Username" /><br />
-	<input type="password" id="loginPassword" placeholder="Password"/><br />
-	<button type="button" id="loginButton" class="buttons" onclick="doLogin()"> GO! </button>
-	<span id="loginResult"></span>
-</div>
+<div class="form" id="wholeForm">
+    <div class="button-box">
+      <div id="btn"></div>
+      <button type="button" class="toggle-btn" onclick="clickRegister()" id="loginSlider">Login</button>
+      <button type="button" class="toggle-btn" onclick="clickLogin()">Signup</button>
+    </div>
+    <form id="login" class="input-form">
+      <input type="text" class="input-field" id="loginName" placeholder="Username" name="username" >
+      <input type="password" class="input-field" id="loginPassword" placeholder="Password" name="password" >
+      <button type="button" id="loginButton" class="submit-btn" onclick="doLogin()">Login</button>
+      <span class="text" id="loginResult"></span>
+    </form>
 
-<div id="signupDiv">
-	<span id="inner-title">Sign up</span>
-	<input type="text" id="signupFirstName" placeholder="First Name"/><br />
-	<input type="text" id="signupLastName" placeholder="Last Name"/><br />
-	<input type="text" id="signupName" placeholder="Username" /><br />
-	<input type="password" id="signupPassword" placeholder="Password"/><br />
-	<button type="button" id="signupButton" class="buttons" onclick="doSignup()"> Start Now </button>
-	<span id="signupResult"></span>
-</div>
+    <form id="signup" class="input-form">
+		<input type="text" class="input-field" id="signupFirstName" placeholder="First Name"/><br />
+		<input type="text" class="input-field" id="signupLastName" placeholder="Last Name"/><br />
+		<input type="text" class="input-field" id="signupName" placeholder="Username" /><br />
+		<input type="password" class="input-field" id="signupPassword" placeholder="Password"/><br />
+		<button type="button" id="signupButton" class="submit-btn" onclick="doSignup()"> Signup </button>
+		<span class="text" id="signupResult"></span>
+      <span class="text" style="color:rgb(203, 55, 21); font-family: 'Audiowide';" id="signupResult"></span>
+    
 
+      
+    </script>
+    
+    </script>
+  </div>
 </body>
+
 </html>

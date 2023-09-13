@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+</html>
+
+<head>
+	<title>The Vault</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/contacts.css" />
+	<link rel="stylesheet" href="css/styles.css" />
+	<link rel="stylesheet" href="css/login.css" />
+	<script type="text/javascript" src="js/code.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
+
+	
+	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function () {
+			readCookie();
+			loadContacts();
+		}, false);
+	</script>
+</head>
+<body>
+	
+	
+	<div class="content">
+		<div class="loggedInDiv">
+			<span style="color:#ffffff" id="userName"></span><br />
+		</div>
+		<div class="accessUIDiv">
+			<br />
+			<div class="column">
+				<div class="search-container">
+					<input onkeyup=searchContacts() type="text" name="search" id="searchText" placeholder="Search"
+						class="search-input">
+					<a href="#" class="search-btn" type="button" id="searchContactButton" class="buttons font"
+						onclick="searchContacts();"><i class="fas fa-search"></i></a>
+				</div>
+				<div class="column">
+					<button type="button" onclick="loadContacts()">
+						Refresh Contacts
+					</button>
+				</div>
+				<div class="column">
+					<button type="button" onclick="showTable()">
+						Add Contact/Show Table
+					</button>
+				</div>
+				
+
+					
+		</div>
+		<!--add contact form-->
+		<div class="addContacts">
+			<form id="addMe" action="" method="post">
+				<input type="text" id="contactTextFirst" placeholder="First Name" required>
+				<input type="text" id="contactTextLast" placeholder="Last Name" required>
+				<input type="text" id="contactTextNumber" placeholder="XXX-XXX-XXXX" required>
+					<!-- pattern="^[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4}$"> -->
+				<input type="text" id="contactTextEmail" placeholder="name@email.com" required>
+					<!-- pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" -->
+				<button type="button" id="addContactButton" class="buttons font" onclick="addContact();"> Add Contact
+				</button>
+			</form>
+		</div>
+		<!--contact table-->
+		<div class="tables">
+			<div class="tbl-content" id="contactsTable">
+				<table id="contacts" cellpadding="0" cellspacing="0" border="0">
+					<thead>
+						<tr>
+							<th>First&nbspName</th>
+							<th>Last&nbspName</th>
+							<th>Email</th>
+							<th>Phone</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody id="tbody"></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div>
+	
+</body>
+
+</html>
