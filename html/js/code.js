@@ -13,8 +13,8 @@ function doLogin() {
 
     let login = document.getElementById("loginName").value;
     let password = document.getElementById("loginPassword").value;
-    console.log(login);
-    console.log(password);
+//    console.log(login);
+//    console.log(password);
     var hash = md5(password);
  //   if (!validLoginForm(login, password)) {
 //        console.log("failing here.");
@@ -25,7 +25,7 @@ function doLogin() {
 
     let tmp = {
         login: login,
-        password: password
+        password: hash
     };
 
     let jsonPayload = JSON.stringify(tmp);
@@ -79,12 +79,12 @@ function doSignup() {
 
 
     document.getElementById("signupResult").innerHTML = "";
-
+    var hash = md5(password);    
     let tmp = {
         firstName: firstName,
         lastName: lastName,
         login: username,
-        password: password
+        password: hash
     };
 
     let jsonPayload = JSON.stringify(tmp);
@@ -237,7 +237,6 @@ function loadContacts() {
     };
 
     let jsonPayload = JSON.stringify(tmp);
-
     let url = urlBase + '/SearchContacts.' + extension;
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
@@ -253,6 +252,7 @@ function loadContacts() {
                 }
                 let text = "<table border='1'>"
                 for (let i = 0; i < jsonObject.results.length; i++) {
+                    
                     ids[i] = jsonObject.results[i].ID
                     text += "<tr id='row" + i + "'>"
                     text += "<td id='first_Name" + i + "'><span>" + jsonObject.results[i].firstName + "</span></td>";
@@ -309,7 +309,7 @@ function save_row(no) {
 
     document.getElementById("edit_button" + no).style.display = "inline-block";
     document.getElementById("save_button" + no).style.display = "none";
-
+    console.log(id_val);
     let tmp = {
         phoneNumber: phone_val,
         emailAddress: email_val,
@@ -317,9 +317,10 @@ function save_row(no) {
         newLastName: namel_val,
         id: id_val
     };
+    console.log(tmp);
 
     let jsonPayload = JSON.stringify(tmp);
-
+    console.log(jsonPayload);
     let url = urlBase + '/UpdateContacts.' + extension;
 
     let xhr = new XMLHttpRequest();
@@ -381,14 +382,19 @@ function searchContacts() {
     const selections = content.value.toUpperCase().split(' ');
     const table = document.getElementById("contacts");
     const tr = table.getElementsByTagName("tr");// Table Row
+    console.log(tr);
 
     for (let i = 0; i < tr.length; i++) {
         const td_fn = tr[i].getElementsByTagName("td")[0];// Table Data: First Name
         const td_ln = tr[i].getElementsByTagName("td")[1];// Table Data: Last Name
+        const td_em = tr[i].getElementsByTagName("td")[2];// Table Data: Email Name David Added
+        const td_pn = tr[i].getElementsByTagName("td")[3];// Table Data: Phone Num David Added
 
         if (td_fn && td_ln) {
             const txtValue_fn = td_fn.textContent || td_fn.innerText;
             const txtValue_ln = td_ln.textContent || td_ln.innerText;
+            const txtValue_em = td_em.textContent || td_em.innerText; // David Made
+            const txtValue_pn = td_pn.textContent || td_pn.innerText; // David Made
             tr[i].style.display = "none";
 
             for (selection of selections) {
@@ -396,6 +402,12 @@ function searchContacts() {
                     tr[i].style.display = "";
                 }
                 if (txtValue_ln.toUpperCase().indexOf(selection) > -1) {
+                    tr[i].style.display = "";
+                }
+                if (txtValue_em.toUpperCase().indexOf(selection) > -1) {
+                    tr[i].style.display = "";
+                }
+                if (txtValue_pn.toUpperCase().indexOf(selection) > -1) {
                     tr[i].style.display = "";
                 }
             }
