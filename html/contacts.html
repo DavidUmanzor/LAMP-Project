@@ -22,9 +22,11 @@
 	</script>
 </head>
 <body>
-	
-	
+
 	<div class="content">
+   <div>
+    <button class="logout-btn" onclick="doLogout()">Logout</button>
+   </div>
 		<div class="loggedInDiv">
 			<span style="color:#ffffff" id="userName"></span><br />
 		</div>
@@ -32,7 +34,7 @@
 			<br />
 			<div class="column">
 				<div class="search-container">
-					<input onkeyup=searchContacts() type="text" name="search" id="searchText" placeholder="Search"
+					<input onkeyup=searchContacts() type="search-text" name="search" id="searchText" placeholder="Search"
 						class="search-input">
 					<a href="#" class="search-btn" type="button" id="searchContactButton" class="buttons font"
 						onclick="searchContacts();"><i class="fas fa-search"></i></a>
